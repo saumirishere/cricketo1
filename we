@@ -1,0 +1,138 @@
+// App.js
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
+
+import HomeScreen from './screens/HomeScreen';
+import ProfileScreen from './screens/ProfileScreen';
+import CalendarScreen from './screens/CalendarScreen';
+import ScorecardScreen from './screens/ScorecardScreen';
+import AchievementsScreen from './screens/AchievementsScreen';
+import MatchScreen from './screens/MatchScreen';
+
+const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
+
+function MainTabNavigator() {
+  return (
+    <Tab.Navigator>
+      <Tab.Screen name="Home" component={HomeScreen} />
+      <Tab.Screen name="Profile" component={ProfileScreen} />
+      <Tab.Screen name="Calendar" component={CalendarScreen} />
+      <Tab.Screen name="Achievements" component={AchievementsScreen} />
+    </Tab.Navigator>
+  );
+}
+
+function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Main" component={MainTabNavigator} options={{ headerShown: false }} />
+        <Stack.Screen name="Scorecard" component={ScorecardScreen} />
+        <Stack.Screen name="Match" component={MatchScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
+
+export default App;
+
+// screens/HomeScreen.js
+import React from 'react';
+import { View, Text, Button } from 'react-native';
+
+function HomeScreen({ navigation }) {
+  return (
+    <View>
+      <Text>Welcome to Cricket Stats Tracker</Text>
+      <Button title="Start New Match" onPress={() => navigation.navigate('Match')} />
+    </View>
+  );
+}
+
+export default HomeScreen;
+
+// screens/ProfileScreen.js
+import React from 'react';
+import { View, Text } from 'react-native';
+
+function ProfileScreen() {
+  return (
+    <View>
+      <Text>Player Profile</Text>
+      {/* Add components for player stats, filters, etc. */}
+    </View>
+  );
+}
+
+export default ProfileScreen;
+
+// screens/CalendarScreen.js
+import React from 'react';
+import { View, Text } from 'react-native';
+
+function CalendarScreen({ navigation }) {
+  return (
+    <View>
+      <Text>Match Calendar</Text>
+      {/* Add calendar component */}
+      {/* Add onPress to navigate to ScorecardScreen */}
+    </View>
+  );
+}
+
+export default CalendarScreen;
+
+// screens/ScorecardScreen.js
+import React from 'react';
+import { View, Text } from 'react-native';
+
+function ScorecardScreen({ route }) {
+  // const { date } = route.params;
+  return (
+    <View>
+      <Text>Scorecard for [Date]</Text>
+      {/* Display scorecard details */}
+    </View>
+  );
+}
+
+export default ScorecardScreen;
+
+// screens/AchievementsScreen.js
+import React from 'react';
+import { View, Text } from 'react-native';
+
+function AchievementsScreen() {
+  return (
+    <View>
+      <Text>Achievements</Text>
+      {/* Display badges and achievements */}
+    </View>
+  );
+}
+
+export default AchievementsScreen;
+
+// screens/MatchScreen.js
+import React, { useState } from 'react';
+import { View, Text, Button } from 'react-native';
+
+function MatchScreen() {
+  const [runs, setRuns] = useState(0);
+  const [wickets, setWickets] = useState(0);
+
+  return (
+    <View>
+      <Text>Current Match</Text>
+      <Text>Runs: {runs}</Text>
+      <Text>Wickets: {wickets}</Text>
+      <Button title="Add Run" onPress={() => setRuns(runs + 1)} />
+      <Button title="Add Wicket" onPress={() => setWickets(wickets + 1)} />
+    </View>
+  );
+}
+
+export default MatchScreen;
